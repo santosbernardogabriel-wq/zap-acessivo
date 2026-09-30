@@ -1,0 +1,179 @@
+<!-- ==========================================
+     ARQUIVO 1: index.html
+     ========================================== -->
+     <!DOCTYPE html>
+     <html lang="pt-BR">
+     <head>
+       <meta charset="UTF-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>ZapAcessível - Mensagens Inclusivas</title>
+     
+       <!-- Google Fonts -->
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+       <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;500;600;700&display=swap" rel="stylesheet">
+     
+       <!-- Bootstrap Icons -->
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+     
+       <!-- Estilos CSS -->
+       <link rel="stylesheet" href="styles.css">
+     </head>
+     <body>
+     
+       <!-- Região para anúncios de leitores de tela -->
+       <div id="sr-announcer" class="sr-only" aria-live="assertive" aria-atomic="true"></div>
+     
+       <div class="app-container" id="app-container">
+     
+         <!-- SIDEBAR / PAINEL ESQUERDO -->
+         <aside class="sidebar" id="sidebar-panel">
+           
+           <header class="app-header">
+             <div class="user-profile">
+               <div class="avatar my-avatar" aria-hidden="true">EU</div>
+               <span class="user-name">Meu Perfil</span>
+             </div>
+     
+             <div class="accessibility-toolbar" role="region" aria-label="Ferramentas de Acessibilidade">
+               <button id="btn-theme" class="btn-icon" title="Alternar Tema (Claro / Escuro / Alto Contraste)" aria-label="Alternar Tema">
+                 <i class="bi bi-circle-half"></i>
+               </button>
+               <button id="btn-font-increase" class="btn-icon" title="Aumentar Fonte" aria-label="Aumentar Fonte">
+                 <strong>A+</strong>
+               </button>
+               <button id="btn-font-decrease" class="btn-icon" title="Diminuir Fonte" aria-label="Diminuir Fonte">
+                 <small>A-</small>
+               </button>
+               <button id="btn-shortcuts" class="btn-icon" title="Atalhos de Teclado (Alt+H)" aria-label="Atalhos de Teclado">
+                 <i class="bi bi-keyboard"></i>
+               </button>
+             </div>
+           </header>
+     
+           <section class="search-section" role="search">
+             <div class="search-input-wrapper">
+               <i class="bi bi-search search-icon" aria-hidden="true"></i>
+               <input type="search" id="search-input" placeholder="Buscar ou iniciar conversa (Alt+S)" aria-label="Buscar contatos">
+             </div>
+             <button id="btn-new-chat" class="btn-primary-action" title="Nova Conversa (Alt+N)">
+               <i class="bi bi-plus-lg"></i> Novo
+             </button>
+           </section>
+     
+           <div class="tts-toggle-wrapper">
+             <label class="toggle-label" for="auto-tts-toggle">
+               <input type="checkbox" id="auto-tts-toggle">
+               <i class="bi bi-volume-up-fill" aria-hidden="true"></i>
+               <span>Ler mensagens recebidas em voz alta</span>
+             </label>
+           </div>
+     
+           <nav class="chat-list-container" aria-label="Lista de Conversas">
+             <ul id="chat-list" class="chat-list" role="list">
+               <!-- Renderizado dinamicamente pelo JavaScript -->
+             </ul>
+           </nav>
+     
+         </aside>
+     
+         <!-- ÁREA DE CONVERSA PRINCIPAL -->
+         <main class="chat-area" id="chat-panel" tabindex="-1">
+           
+           <header class="chat-header">
+             <div class="current-chat-info">
+               <button id="btn-back-sidebar" class="btn-icon mobile-only" aria-label="Voltar para a lista de conversas">
+                 <i class="bi bi-arrow-left"></i>
+               </button>
+               <div class="avatar" id="current-chat-avatar" aria-hidden="true">A</div>
+               <div>
+                 <h2 id="current-chat-name" class="chat-title">Carregando...</h2>
+                 <span id="current-chat-status" class="chat-status">Online</span>
+               </div>
+             </div>
+     
+             <div class="chat-actions">
+               <button class="btn-icon" id="btn-read-chat" title="Ouvir Conversa Completa" aria-label="Ouvir todas as mensagens desta conversa">
+                 <i class="bi bi-megaphone"></i>
+               </button>
+               <button class="btn-icon" id="btn-call-audio" title="Chamada de Voz" aria-label="Iniciar chamada de voz">
+                 <i class="bi bi-telephone"></i>
+               </button>
+               <button class="btn-icon" id="btn-call-video" title="Chamada de Vídeo" aria-label="Iniciar chamada de vídeo">
+                 <i class="bi bi-camera-video"></i>
+               </button>
+             </div>
+           </header>
+     
+           <!-- Fundo Estilo WhatsApp Web com SVG Doodle -->
+           <section id="messages-container" class="messages-container" role="log" aria-live="polite" aria-label="Histórico de mensagens">
+             <!-- Renderizado dinamicamente pelo JavaScript -->
+           </section>
+     
+           <footer class="message-input-area">
+             <div id="emoji-picker" class="emoji-picker hidden" role="region" aria-label="Seletor de Emojis">
+               <button type="button" class="btn-emoji" aria-label="Emoji Sorriso">😊</button>
+               <button type="button" class="btn-emoji" aria-label="Emoji Coração">❤️</button>
+               <button type="button" class="btn-emoji" aria-label="Emoji Joinha">👍</button>
+               <button type="button" class="btn-emoji" aria-label="Emoji Risada">😂</button>
+               <button type="button" class="btn-emoji" aria-label="Emoji Palmas">👏</button>
+               <button type="button" class="btn-emoji" aria-label="Emoji Festa">🎉</button>
+               <button type="button" class="btn-emoji" aria-label="Emoji Oração">🙏</button>
+               <button type="button" class="btn-emoji" aria-label="Emoji Fogo">🔥</button>
+             </div>
+     
+             <form id="message-form" class="message-form" onsubmit="return false;">
+               <button type="button" id="btn-emoji-toggle" class="btn-icon" aria-label="Abrir emojis" aria-expanded="false">
+                 <i class="bi bi-emoji-smile"></i>
+               </button>
+               
+               <button type="button" id="btn-speech-input" class="btn-icon mic-btn" title="Ditado por Voz" aria-label="Ditado por voz">
+                 <i class="bi bi-mic"></i>
+               </button>
+     
+               <input type="text" id="message-input" placeholder="Digite uma mensagem (Alt+M)" aria-label="Digite uma mensagem" autocomplete="off">
+     
+               <button type="submit" id="btn-send" class="btn-send" aria-label="Enviar Mensagem">
+                 <i class="bi bi-send-fill"></i>
+                 <span>Enviar</span>
+               </button>
+             </form>
+           </footer>
+     
+         </main>
+     
+       </div>
+     
+       <!-- MODAL ATALHOS -->
+       <div id="modal-shortcuts" class="modal hidden" role="dialog" aria-labelledby="shortcuts-title" aria-modal="true">
+         <div class="modal-content">
+           <h2 id="shortcuts-title"><i class="bi bi-keyboard-fill"></i> Atalhos de Teclado</h2>
+           <ul class="shortcuts-list">
+             <li><span>Nova Conversa</span> <kbd>Alt + N</kbd></li>
+             <li><span>Buscar Conversas</span> <kbd>Alt + S</kbd></li>
+             <li><span>Focar na Mensagem</span> <kbd>Alt + M</kbd></li>
+             <li><span>Abrir este Menu de Ajuda</span> <kbd>Alt + H</kbd></li>
+             <li><span>Fechar Modais e Menus</span> <kbd>Esc</kbd></li>
+           </ul>
+           <button id="btn-close-shortcuts" class="btn-primary">Fechar (Esc)</button>
+         </div>
+       </div>
+     
+       <!-- MODAL CHAMADA -->
+       <div id="modal-call" class="modal hidden" role="dialog" aria-labelledby="call-title" aria-modal="true">
+         <div class="modal-content text-center">
+           <div class="avatar large pulse-avatar" id="call-avatar">A</div>
+           <h2 id="call-title">Chamada em andamento</h2>
+           <p id="call-status">Conectando áudio e áudio-descrição...</p>
+           <div style="margin-top:20px;">
+             <button id="btn-end-call" class="btn-danger">
+               <i class="bi bi-telephone-x-fill"></i> Encerrar Chamada
+             </button>
+           </div>
+         </div>
+       </div>
+     
+       <!-- Scripts JS -->
+       <script src="script.js"></script>
+     </body>
+     </html>
